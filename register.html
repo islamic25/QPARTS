@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Registration | QParts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .brand-section {
+            flex: 1;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .brand-logo {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .brand-logo i {
+            font-size: 50px;
+            color: #1a2a6c;
+        }
+        
+        .brand-section h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .brand-section p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .form-section {
+            flex: 1;
+            padding: 40px;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-header h2 {
+            color: #1a2a6c;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            border-color: #1a2a6c;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.2);
+        }
+        
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #777;
+        }
+        
+        .error-icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #dc3545;
+            display: none;
+        }
+        
+        .error-text {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .terms input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .terms label {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .terms a {
+            color: #1a2a6c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: #dc3545;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .success-message {
+            color: #155724;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .login-link a {
+            color: #1a2a6c;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .brand-section {
+                padding: 30px;
+            }
+            
+            .form-section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand-section">
+            <div class="brand-logo">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h2>QParts Online Store</h2>
+            <p>Join thousands of satisfied customers shopping for quality parts</p>
+            <div style="margin-top: 30px; text-align: left; width: 100%;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-check-circle" style="margin-right: 10px; font-size: 20px;"></i>
+                    <span>Secure payment processing</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-shipping-fast" style="margin-right: 10px; font-size: 20px;"></i>
+                    <span>Fast & reliable shipping</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <i class="fas fa-headset" style="margin-right: 10px; font-size: 20px;"></i>
+                    <span>24/7 customer support</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-header">
+                <h2>Create Account</h2>
+                <p>Join QParts today for a better shopping experience</p>
+            </div>
+            
+            <div class="error-message" id="error-message">
+                <i class="fas fa-exclamation-circle"></i> <span id="error-text"></span>
+            </div>
+            
+            <div class="success-message" id="success-message">
+                <i class="fas fa-check-circle"></i> <span id="success-text"></span>
+            </div>
+            
+            <form id="registration-form">
+                <div class="input-group">
+                    <label for="fullName">Full Name</label>
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="fullName" placeholder="Your full name" required>
+                    <i class="fas fa-exclamation-circle error-icon" id="name-error-icon"></i>
+                    <div class="error-text" id="name-error">Please enter your full name</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="your.email@example.com" required>
+                    <i class="fas fa-exclamation-circle error-icon" id="email-error-icon"></i>
+                    <div class="error-text" id="email-error">Please enter a valid email</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <i class="fas fa-phone"></i>
+                    <input type="text" id="phone" placeholder="0300-1234567" required>
+                    <i class="fas fa-exclamation-circle error-icon" id="phone-error-icon"></i>
+                    <div class="error-text" id="phone-error">Please enter a valid phone number</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="address">Address</label>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" id="address" placeholder="Your full address" required>
+                    <i class="fas fa-exclamation-circle error-icon" id="address-error-icon"></i>
+                    <div class="error-text" id="address-error">Please enter your address</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Create a strong password" required>
+                    <span class="password-toggle" id="password-toggle">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                    <i class="fas fa-exclamation-circle error-icon" id="password-error-icon"></i>
+                    <div class="error-text" id="password-error">Password must be at least 6 characters</div>
+                </div>
+                
+                <div class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+                
+                <button type="submit" class="btn" id="register-btn">
+                    <span id="btn-text">Create Account</span>
+                    <span id="btn-loader" class="spinner" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div class="login-link">
+                Already have an account? <a href="login.html">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZ5oQA5RLzisV4gSv0qD3nEklU-UHdFlg",
+            authDomain: "qparts-23575.firebaseapp.com",
+            projectId: "qparts-23575",
+            storageBucket: "qparts-23575.appspot.com",
+            messagingSenderId: "1006090641682",
+            appId: "1:1006090641682:web:d4b88d5dd4f498b6a9d3cb",
+            measurementId: "G-LXY1R8RYY6"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elements
+            const registrationForm = document.getElementById('registration-form');
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const addressInput = document.getElementById('address');
+            const passwordInput = document.getElementById('password');
+            const registerBtn = document.getElementById('register-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+            const errorMessage = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+            const successMessage = document.getElementById('success-message');
+            const successText = document.getElementById('success-text');
+            const passwordToggle = document.getElementById('password-toggle');
+            const eyeIcon = passwordToggle.querySelector('i');
+            
+            // Error elements
+            const nameError = document.getElementById('name-error');
+            const nameErrorIcon = document.getElementById('name-error-icon');
+            const emailError = document.getElementById('email-error');
+            const emailErrorIcon = document.getElementById('email-error-icon');
+            const phoneError = document.getElementById('phone-error');
+            const phoneErrorIcon = document.getElementById('phone-error-icon');
+            const addressError = document.getElementById('address-error');
+            const addressErrorIcon = document.getElementById('address-error-icon');
+            const passwordError = document.getElementById('password-error');
+            const passwordErrorIcon = document.getElementById('password-error-icon');
+            
+            // Toggle password visibility
+            passwordToggle.addEventListener('click', () => {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                eyeIcon.classList.toggle('fa-eye');
+                eyeIcon.classList.toggle('fa-eye-slash');
+            });
+            
+            // Real-time validation
+            fullNameInput.addEventListener('blur', validateName);
+            emailInput.addEventListener('blur', validateEmail);
+            phoneInput.addEventListener('blur', validatePhone);
+            addressInput.addEventListener('blur', validateAddress);
+            passwordInput.addEventListener('blur', validatePassword);
+            
+            function validateName() {
+                const name = fullNameInput.value.trim();
+                if (!name) {
+                    showError(fullNameInput, nameError, nameErrorIcon, 'Name is required');
+                    return false;
+                }
+                hideError(fullNameInput, nameError, nameErrorIcon);
+                return true;
+            }
+            
+            function validateEmail() {
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (!email) {
+                    showError(emailInput, emailError, emailErrorIcon, 'Email is required');
+                    return false;
+                }
+                
+                if (!emailRegex.test(email)) {
+                    showError(emailInput, emailError, emailErrorIcon, 'Enter a valid email address');
+                    return false;
+                }
+                
+                hideError(emailInput, emailError, emailErrorIcon);
+                return true;
+            }
+            
+            function validatePhone() {
+                const phone = phoneInput.value.trim();
+                const phoneRegex = /^[0-9]{4}-[0-9]{7}$/;
+                
+                if (!phone) {
+                    showError(phoneInput, phoneError, phoneErrorIcon, 'Phone is required');
+                    return false;
+                }
+                
+                if (!phoneRegex.test(phone)) {
+                    showError(phoneInput, phoneError, phoneErrorIcon, 'Format: 0300-1234567');
+                    return false;
+                }
+                
+                hideError(phoneInput, phoneError, phoneErrorIcon);
+                return true;
+            }
+            
+            function validateAddress() {
+                const address = addressInput.value.trim();
+                if (!address) {
+                    showError(addressInput, addressError, addressErrorIcon, 'Address is required');
+                    return false;
+                }
+                hideError(addressInput, addressError, addressErrorIcon);
+                return true;
+            }
+            
+            function validatePassword() {
+                const password = passwordInput.value;
+                if (!password) {
+                    showError(passwordInput, passwordError, passwordErrorIcon, 'Password is required');
+                    return false;
+                }
+                
+                if (password.length < 6) {
+                    showError(passwordInput, passwordError, passwordErrorIcon, 'Password must be at least 6 characters');
+                    return false;
+                }
+                
+                hideError(passwordInput, passwordError, passwordErrorIcon);
+                return true;
+            }
+            
+            function showError(input, errorElement, errorIcon, message) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                errorIcon.style.display = 'block';
+                input.style.borderColor = '#dc3545';
+            }
+            
+            function hideError(input, errorElement, errorIcon) {
+                errorElement.style.display = 'none';
+                errorIcon.style.display = 'none';
+                input.style.borderColor = '#ddd';
+            }
+            
+            // Form submit
+            registrationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Validate all fields
+                const isNameValid = validateName();
+                const isEmailValid = validateEmail();
+                const isPhoneValid = validatePhone();
+                const isAddressValid = validateAddress();
+                const isPasswordValid = validatePassword();
+                
+                if (!isNameValid || !isEmailValid || !isPhoneValid || !isAddressValid || !isPasswordValid) {
+                    return;
+                }
+                
+                const fullName = fullNameInput.value.trim();
+                const email = emailInput.value.trim();
+                const phone = phoneInput.value.trim();
+                const address = addressInput.value.trim();
+                const password = passwordInput.value;
+                
+                // UI update
+                btnText.textContent = "Creating Account...";
+                btnLoader.style.display = "inline-block";
+                registerBtn.disabled = true;
+                errorMessage.style.display = "none";
+                successMessage.style.display = "none";
+                
+                // Firebase Register
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        
+                        // Save additional user data to Firestore
+                        return db.collection('users').doc(user.uid).set({
+                            fullName: fullName,
+                            email: email,
+                            phone: phone,
+                            address: address,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    })
+                    .then(() => {
+                        // Success UI
+                        btnText.textContent = "Success!";
+                        btnLoader.style.display = "none";
+                        successText.textContent = "Account created successfully! Redirecting to profile...";
+                        successMessage.style.display = "block";
+                        
+                        // Redirect to profile page after delay
+                        setTimeout(() => {
+                            window.location.href = "profile.html";
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        // Handle errors
+                        let message = "Something went wrong. Please try again.";
+                        
+                        switch(error.code) {
+                            case "auth/email-already-in-use":
+                                message = "This email is already in use.";
+                                break;
+                            case "auth/invalid-email":
+                                message = "Please enter a valid email address.";
+                                break;
+                            case "auth/weak-password":
+                                message = "Password must be at least 6 characters.";
+                                break;
+                            case "auth/operation-not-allowed":
+                                message = "Account creation is currently disabled.";
+                                break;
+                        }
+                        
+                        // Reset UI
+                        btnText.textContent = "Create Account";
+                        btnLoader.style.display = "none";
+                        registerBtn.disabled = false;
+                        
+                        errorText.textContent = message;
+                        errorMessage.style.display = "block";
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

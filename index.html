@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QParts - Premium Auto Parts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a2a6c;
+            --secondary: #b21f1f;
+            --accent: #ffd700;
+            --light: #f5f7fa;
+            --dark: #1a1a2e;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            font-size: 32px;
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: none;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-container button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .action-icon {
+            position: relative;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .action-icon:hover {
+            color: var(--accent);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .main-nav {
+            display: flex;
+            list-style: none;
+        }
+        
+        .main-nav li {
+            position: relative;
+        }
+        
+        .main-nav a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .main-nav a:hover {
+            color: var(--primary);
+        }
+        
+        .main-nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .dropdown {
+            position: absolute;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 220px;
+            top: 100%;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+        
+        .main-nav li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown a {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+        
+        .nav-extra {
+            display: flex;
+            align-items: center;
+        }
+        
+        .hotline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 15px;
+        }
+        
+        .hotline i {
+            color: var(--secondary);
+            font-size: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--dark);
+        }
+        
+        /* Categories Section */
+        .section {
+            padding: 80px 20px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-img {
+            height: 180px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .category-img i {
+            font-size: 60px;
+            color: var(--primary);
+        }
+        
+        .category-content {
+            padding: 20px;
+        }
+        
+        .category-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        /* Products Section */
+        .products {
+            background: var(--light-gray);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-img {
+            height: 200px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .product-img img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            height: 50px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+        
+        .product-rating {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .add-to-cart:hover {
+            background: var(--secondary);
+        }
+        
+        .wishlist {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .wishlist:hover {
+            background: #ddd;
+        }
+        
+        /* Features Section */
+        .features {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .features .section-header h2 {
+            color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .feature-card h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 0;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-col h4 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-col p {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            color: #bbb;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .search-container {
+                margin: 0 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .search-container {
+                order: 3;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .nav-container {
+                justify-content: flex-end;
+            }
+            
+            .hotline {
+                display: none;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-actions {
+                gap: 15px;
+            }
+            
+            .action-icon {
+                font-size: 18px;
+            }
+            
+            .section {
+                padding: 60px 15px;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .categories,
+            .product-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <h1>Q<span>Parts</span></h1>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" placeholder="Search for auto parts, brands, or categories...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+
+<div class="header-actions">
+  <div class="action-icon" id="userIcon">
+    <i class="fas fa-user"></i>
+  </div>
+  <div class="action-icon">
+    <i class="fas fa-heart"></i>
+    <span class="cart-count">3</span>
+  </div>
+  <div class="action-icon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count">5</span>
+  </div>
+</div>
+
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="main-nav">
+                <li><a href="#" class="active">Home</a></li>
+                <li>
+                    <a href="#">Categories <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown">
+                        <a href="#">Engine Parts</a>
+                        <a href="#">Brake System</a>
+                        <a href="#">Suspension</a>
+                        <a href="#">Exhaust System</a>
+                        <a href="#">Lighting</a>
+                    </div>
+                </li>
+                <li><a href="#">New Arrivals</a></li>
+                <li><a href="#">Deals & Discounts</a></li>
+                <li><a href="#">Brands</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            
+            <div class="nav-extra">
+                <div class="hotline">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <div>Customer Support</div>
+                        <div>(888) 555-1234</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Premium Auto Parts at Unbeatable Prices</h2>
+            <p>Find the perfect parts for your vehicle with our extensive catalog of over 10,000 products from top brands</p>
+            <div>
+                <a href="#" class="btn">Shop Now</a>
+                <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2>Shop By Category</h2>
+            <p>Browse our extensive range of auto parts categories</p>
+        </div>
+        
+        <div class="categories">
+            <div class="category-card">
+                <div class="category-img">
+                    <i class="fas fa-oil-can"></i>
+                </div>
+                <div class="category-content">
+                    <h3>Engine Parts</h3>
+                    <p>Over 500 products</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img">
+                    <i class="fas fa-car-battery"></i>
+                </div>
+                <div class="category-content">
+                    <h3>Electrical</h3>
+                    <p>Batteries, alternators & more</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="category-content">
+                    <h3>Tools & Equipment</h3>
+                    <p>Professional grade tools</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-img">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="category-content">
+                    <h3>Fluids & Chemicals</h3>
+                    <p>Oils, lubricants & additives</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="section products">
+        <div class="section-header">
+            <h2>Featured Products</h2>
+            <p>Top quality parts recommended by our experts</p>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">
+                    <div class="product-badge">New</div>
+                    <img src="https://images.unsplash.com/photo-1552519507-88aa2dfa9fdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Brake Disc">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Premium Brake Disc Rotor Set</h3>
+                    <div class="product-price">
+                        <span class="price">$89.99</span>
+                        <span class="old-price">$129.99</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(42)</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img">
+                    <div class="product-badge">Sale</div>
+                    <img src="https://images.unsplash.com/photo-1605733513597-a8f8341084e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Air Filter">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Performance Air Filter</h3>
+                    <div class="product-price">
+                        <span class="price">$24.99</span>
+                        <span class="old-price">$34.99</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(28)</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Car Battery">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Heavy-Duty Car Battery</h3>
+                    <div class="product-price">
+                        <span class="price">$129.99</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(65)</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Oil Filter">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Synthetic Oil Filter</h3>
+                    <div class="product-price">
+                        <span class="price">$12.99</span>
+                    </div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(37)</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="action-btn wishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="section features">
+        <div class="section-header">
+            <h2>Why Choose QParts</h2>
+            <p>We provide the best service for all your automotive needs</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3>Fast Shipping</h3>
+                <p>Free shipping on orders over $99. Most orders delivered in 1-3 business days.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Quality Guarantee</h3>
+                <p>All parts come with a minimum 1-year warranty. 30-day money back guarantee.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Expert Support</h3>
+                <p>Our team of ASE-certified technicians is available to help with any questions.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <h3>Best Prices</h3>
+                <p>We guarantee the lowest prices on all auto parts. Found a lower price? We'll match it.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>About QParts</h4>
+                <p>QParts is your premier destination for high-quality auto parts and accessories. With over 15 years of experience, we're committed to providing exceptional products and service.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Engine Parts</a></li>
+                    <li><a href="#">Brake System</a></li>
+                    <li><a href="#">Suspension</a></li>
+                    <li><a href="#">Exhaust System</a></li>
+                    <li><a href="#">Lighting</a></li>
+                    <li><a href="#">Tools & Equipment</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Auto Street, Detroit, MI 48201</p>
+                <p><i class="fas fa-phone-alt"></i> (888) 555-1234</p>
+                <p><i class="fas fa-envelope"></i> support@qparts.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8am - 8pm, Sat-Sun: 9am - 6pm</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 QParts Auto Supply. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+ 
+
+<!-- Firebase v10 CDN (non-module version - works with plain HTML) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDZ5oQA5RLzisV4gSv0qD3nEklU-UHdFlg",
+    authDomain: "qparts-23575.firebaseapp.com",
+    projectId: "qparts-23575",
+    storageBucket: "qparts-23575.firebasestorage.app",
+    messagingSenderId: "1006090641682",
+    appId: "1:1006090641682:web:d4b88d5dd4f498b6a9d3cb",
+    measurementId: "G-LXY1R8RYY6"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const userIcon = document.getElementById('userIcon');
+
+    if (!userIcon) {
+      console.error("❌ userIcon element not found!");
+      return;
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log("✅ User logged in");
+        userIcon.innerHTML = `<i class="fas fa-user-circle"></i>`;
+        userIcon.onclick = () => {
+          console.log("➡️ Going to profile.html");
+          window.location.href = 'profile.html';
+        };
+      } else {
+        console.log("❌ No user logged in");
+        userIcon.innerHTML = `<i class="fas fa-sign-in-alt"></i>`;
+        userIcon.onclick = () => {
+          console.log("➡️ Going to login.html");
+          window.location.href = 'login.html';
+        };
+      }
+    });
+  });
+</script>
+<script>
+    // 🔹 Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function () {
+      const nav = document.querySelector('.main-nav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // 🔹 Product actions
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function () {
+        const product = this.closest('.product-card');
+        const title = product.querySelector('.product-title').textContent;
+
+        const notification = document.createElement('div');
+        notification.innerHTML = `
+          <div style="position: fixed; top: 20px; right: 20px; background: #4CAF50; color: white; padding: 15px; border-radius: 5px; z-index: 10000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            <i class="fas fa-check-circle"></i> Added "${title}" to cart!
+          </div>
+        `;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 3000);
+
+        const cartCount = document.querySelector('.header-actions .cart-count');
+        let count = parseInt(cartCount.textContent);
+        cartCount.textContent = count + 1;
+      });
+    });
+    <div id="product-list" class="product-grid"></div>
+const db = firebase.firestore();
+
+  db.collection("products")
+    .orderBy("createdAt", "desc")
+    .onSnapshot(snapshot => {
+      const container = document.getElementById("product-list");
+      container.innerHTML = "";
+
+      snapshot.forEach(doc => {
+        const product = doc.data();
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>${product.description}</p>
+          <p><strong>$${product.price}</strong></p>
+          <button class="add-to-cart">Add to Cart</button>
+        `;
+        container.appendChild(card);
+      });
+    });
+    // 🔹 Wishlist actions
+    document.querySelectorAll('.wishlist').forEach(button => {
+      button.addEventListener('click', function () {
+        const heart = this.querySelector('i');
+        if (heart.classList.contains('fas')) {
+          heart.classList.remove('fas');
+          heart.classList.add('far');
+        } else {
+          heart.classList.remove('far');
+          heart.classList.add('fas');
+        }
+      });
+    });
+  
+</script>
+
+
+</body>
+</html>

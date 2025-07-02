@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile - QParts</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #1a2a6c;
+      --secondary: #b21f1f;
+      --accent: #ffd700;
+      --light: #f5f7fa;
+      --dark: #1a1a2e;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header Styles */
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo i {
+      font-size: 32px;
+      margin-right: 10px;
+      color: var(--accent);
+    }
+    
+    .logo h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .action-icon {
+      position: relative;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .action-icon:hover {
+      color: var(--accent);
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent);
+      color: var(--dark);
+      font-size: 12px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+    
+    /* Profile Section */
+    .profile-section {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .profile-container {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      display: flex;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .profile-sidebar {
+      width: 300px;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      color: white;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      border: 3px solid var(--accent);
+    }
+    
+    .profile-pic i {
+      font-size: 50px;
+      color: white;
+    }
+    
+    .profile-name {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .profile-email {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 30px;
+    }
+    
+    .profile-stats {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    .nav-links {
+      width: 100%;
+    }
+    
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: var(--transition);
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .nav-link i {
+      margin-right: 15px;
+      font-size: 20px;
+      width: 24px;
+      text-align: center;
+    }
+    
+    .profile-content {
+      flex: 1;
+      padding: 40px;
+    }
+    
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--light-gray);
+    }
+    
+    .content-header h2 {
+      color: var(--primary);
+      font-size: 28px;
+    }
+    
+    .edit-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .edit-btn:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+    }
+    
+    .info-group {
+      margin-bottom: 25px;
+    }
+    
+    .info-label {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 5px;
+    }
+    
+    .info-value {
+      font-size: 18px;
+      font-weight: 500;
+    }
+    
+    .info-row {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+    
+    .info-card {
+      flex: 1;
+      background: var(--light);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    
+    .info-card h3 {
+      margin-bottom: 15px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .recent-orders {
+      margin-top: 30px;
+    }
+    
+    .order-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    
+    .order-img {
+      width: 70px;
+      height: 70px;
+      background: var(--light-gray);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+    }
+    
+    .order-img i {
+      font-size: 30px;
+      color: var(--gray);
+    }
+    
+    .order-details {
+      flex: 1;
+    }
+    
+    .order-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .order-meta {
+      display: flex;
+      font-size: 14px;
+      color: var(--gray);
+      gap: 15px;
+    }
+    
+    .order-status {
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .status-delivered {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-processing {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .logout-btn {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    
+    .logout-btn:hover {
+      background: #c9302c;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(185, 28, 28, 0.3);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 40px 0 0;
+      margin-top: auto;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-col h4 {
+      color: var(--accent);
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: #bbb;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+    
+    .footer-bottom {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 20px 0;
+      margin-top: 40px;
+      text-align: center;
+    }
+    
+    .footer-bottom p {
+      color: #bbb;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 900px) {
+      .profile-container {
+        flex-direction: column;
+      }
+      
+      .profile-sidebar {
+        width: 100%;
+      }
+      
+      .profile-stats {
+        max-width: 400px;
+        margin: 0 auto 30px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .header-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .info-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .profile-content {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-car"></i>
+        <h1>Q<span>Parts</span></h1>
+      </div>
+      
+      <div class="header-actions">
+        <div class="action-icon">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="action-icon">
+          <i class="fas fa-heart"></i>
+          <span class="cart-count">3</span>
+        </div>
+        <div class="action-icon">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">5</span>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Profile Section -->
+  <section class="profile-section">
+    <div class="profile-container">
+      <div class="profile-sidebar">
+        <div class="profile-pic">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="profile-name" id="userName">John Anderson</div>
+        <div class="profile-email" id="userEmail">john.anderson@example.com</div>
+        
+        <div class="profile-stats">
+          <div class="stat-item">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Orders</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Wishlist</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">2</div>
+            <div class="stat-label">Reviews</div>
+          </div>
+        </div>
+        
+        <div class="nav-links">
+          <a href="#" class="nav-link active">
+            <i class="fas fa-user"></i> My Profile
+          </a>
+          <a href="#" class="nav-link">
+            <i class="fas fa-shopping-bag"></i> My Orders
+          </a>
+          <a href="#" class="nav-link">
+            <i class="fas fa-heart"></i> Wishlist
+          </a>
+          <a href="#" class="nav-link">
+            <i class="fas fa-map-marker-alt"></i> Addresses
+          </a>
+          <a href="#" class="nav-link">
+            <i class="fas fa-lock"></i> Change Password
+          </a>
+        </div>
+      </div>
+      
+      <div class="profile-content">
+        <div class="content-header">
+          <h2>Personal Information</h2>
+          <button class="edit-btn">
+            <i class="fas fa-edit"></i> Edit Profile
+          </button>
+        </div>
+        
+        <div class="info-row">
+          <div class="info-card">
+            <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+            <div class="info-group">
+              <div class="info-label">Full Name</div>
+              <div class="info-value" id="profileName">John Anderson</div>
+            </div>
+            <div class="info-group">
+              <div class="info-label">Email Address</div>
+              <div class="info-value" id="profileEmail">john.anderson@example.com</div>
+            </div>
+            <div class="info-group">
+              <div class="info-label">Phone Number</div>
+              <div class="info-value">(555) 123-4567</div>
+            </div>
+            <div class="info-group">
+              <div class="info-label">Member Since</div>
+              <div class="info-value">January 15, 2023</div>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <h3><i class="fas fa-map-marked-alt"></i> Default Address</h3>
+            <div class="info-group">
+              <div class="info-value">123 Auto Street</div>
+              <div class="info-value">Detroit, MI 48201</div>
+              <div class="info-value">United States</div>
+            </div>
+            <div class="info-group">
+              <div class="info-label">Phone</div>
+              <div class="info-value">(555) 123-4567</div>
+            </div>
+            <button class="edit-btn" style="margin-top: 10px;">
+              <i class="fas fa-edit"></i> Edit Address
+            </button>
+          </div>
+        </div>
+        
+        <div class="recent-orders">
+          <h3><i class="fas fa-history"></i> Recent Orders</h3>
+          
+          <div class="order-item">
+            <div class="order-img">
+              <i class="fas fa-oil-can"></i>
+            </div>
+            <div class="order-details">
+              <div class="order-title">Synthetic Engine Oil</div>
+              <div class="order-meta">
+                <span>Order #QP-98452</span>
+                <span>Jun 12, 2023</span>
+                <span>$48.99</span>
+              </div>
+            </div>
+            <div class="order-status status-delivered">Delivered</div>
+          </div>
+          
+          <div class="order-item">
+            <div class="order-img">
+              <i class="fas fa-tools"></i>
+            </div>
+            <div class="order-details">
+              <div class="order-title">Professional Tool Kit</div>
+              <div class="order-meta">
+                <span>Order #QP-98123</span>
+                <span>Jun 5, 2023</span>
+                <span>$129.99</span>
+              </div>
+            </div>
+            <div class="order-status status-processing">Processing</div>
+          </div>
+        </div>
+        
+        <button class="logout-btn" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>Customer Service</h4>
+        <ul class="footer-links">
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>My Account</h4>
+        <ul class="footer-links">
+          <li><a href="#">My Profile</a></li>
+          <li><a href="#">Order History</a></li>
+          <li><a href="#">Wishlist</a></li>
+          <li><a href="#">Newsletter</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>About QParts</h4>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Our Stores</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <ul class="footer-links">
+          <li><i class="fas fa-map-marker-alt"></i> 123 Auto Street, Detroit</li>
+          <li><i class="fas fa-phone"></i> (888) 555-1234</li>
+          <li><i class="fas fa-envelope"></i> support@qparts.com</li>
+          <li><i class="fas fa-clock"></i> Mon-Fri: 8am-8pm EST</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2023 QParts Auto Supply. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+ <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // ✅ Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDZ5oQA5RLzisV4gSv0qD3nEklU-UHdFlg",
+    authDomain: "qparts-23575.firebaseapp.com",
+    projectId: "qparts-23575",
+    storageBucket: "qparts-23575.appspot.com",
+    messagingSenderId: "1006090641682",
+    appId: "1:1006090641682:web:d4b88d5dd4f498b6a9d3cb",
+    measurementId: "G-LXY1R8RYY6"
+  };
+
+  // ✅ Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // ✅ Handle User State
+  document.addEventListener('DOMContentLoaded', () => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        const uid = user.uid;
+
+       db.collection("users").doc(uid).onSnapshot(doc => {
+  if (doc.exists) {
+    const data = doc.data();
+
+    // Name + Email
+    document.getElementById('userName').textContent = data.fullName || "No Name";
+    document.getElementById('userEmail').textContent = data.email || user.email;
+    document.getElementById('profileName').textContent = data.fullName || "No Name";
+    document.getElementById('profileEmail').textContent = data.email || user.email;
+
+    // Phone
+    const phoneElement = document.querySelectorAll('.info-value');
+    if (phoneElement[2]) phoneElement[2].textContent = data.phone || "Not provided";
+
+    // Member Since
+    const memberSinceElement = document.querySelectorAll('.info-value');
+    if (memberSinceElement[3]) {
+      const createdDate = data.createdAt?.toDate?.().toLocaleDateString() || "N/A";
+      memberSinceElement[3].textContent = createdDate;
+    }
+
+    // Address (2nd card, first 3 lines)
+    const addressElements = document.querySelectorAll('.info-card')[1].querySelectorAll('.info-value');
+    if (addressElements.length >= 3) {
+      const addressParts = data.address?.split(',') || ["Address not set", "", ""];
+      addressElements[0].textContent = addressParts[0] || "";
+      addressElements[1].textContent = addressParts[1] || "";
+      addressElements[2].textContent = addressParts[2] || "";
+    }
+
+    // Address Phone
+    const addressPhone = document.querySelectorAll('.info-card')[1].querySelectorAll('.info-value')[3];
+    if (addressPhone) addressPhone.textContent = data.phone || "Not provided";
+
+  } else {
+    console.log("No user data found in Firestore.");
+  }
+});
+
+      } else {
+        // Redirect if not logged in
+        window.location.href = "login.html";
+      }
+    });
+  });
+
+  // ✅ Logout Function
+  function logout() {
+    auth.signOut().then(() => {
+      window.location.href = "login.html";
+    });
+  }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | QParts E-commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .brand-section {
+            flex: 1;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .brand-logo {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .brand-logo i {
+            font-size: 50px;
+            color: #1a2a6c;
+        }
+        
+        .brand-section h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .brand-section p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .customer-testimonials {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            padding: 0 30px;
+            text-align: center;
+        }
+        
+        .testimonial {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .customer-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-section {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-header h2 {
+            color: #1a2a6c;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            border-color: #1a2a6c;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.2);
+        }
+        
+        .input-field {
+            position: relative;
+        }
+        
+        .input-field i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #777;
+        }
+        
+        .input-field input {
+            padding-left: 45px;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember input {
+            margin-right: 8px;
+        }
+        
+        .forgot-password a {
+            color: #1a2a6c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: #dc3545;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .register-link a {
+            color: #1a2a6c;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .social-login {
+            margin-top: 25px;
+            text-align: center;
+        }
+        
+        .social-login p {
+            position: relative;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .social-login p::before,
+        .social-login p::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        .social-login p::before {
+            left: 0;
+        }
+        
+        .social-login p::after {
+            right: 0;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            color: #333;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .facebook { color: #3b5998; }
+        .google { color: #db4437; }
+        .twitter { color: #1da1f2; }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .brand-section {
+                padding: 30px;
+            }
+            
+            .form-section {
+                padding: 30px;
+            }
+            
+            .customer-testimonials {
+                position: relative;
+                margin-top: 30px;
+                bottom: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand-section">
+            <div class="brand-logo">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h2>QParts Online Store</h2>
+            <p>Welcome back to your favorite auto parts destination</p>
+            
+            <div class="customer-testimonials">
+                <p class="testimonial">"The best auto parts selection with fast shipping!"</p>
+                <p class="customer-name">- Michael Johnson</p>
+                
+                <p class="testimonial">"Saved me hundreds on my car repair. Highly recommend!"</p>
+                <p class="customer-name">- Sarah Williams</p>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-header">
+                <h2>Sign In to Your Account</h2>
+                <p>Access your orders, wishlist and special offers</p>
+            </div>
+            
+            <div class="error-message" id="error-message">
+                <i class="fas fa-exclamation-circle"></i> <span id="error-text"></span>
+            </div>
+            
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="your.email@example.com" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <span class="password-toggle" id="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="remember-forgot">
+                    <div class="remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" id="login-btn">
+                    <span id="btn-text">Sign In</span>
+                    <span id="btn-loader" class="spinner" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div class="social-login">
+                <p>Or sign in with</p>
+                <div class="social-icons">
+                    <div class="social-icon facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-icon google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-icon twitter">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="register-link">
+                Don't have an account? <a href="register.html">Register now</a>
+            </div>
+        </div>
+    </div>
+<!-- Firebase v10.12.2 compat version -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZ5oQA5RLzisV4gSv0qD3nEklU-UHdFlg",
+            authDomain: "qparts-23575.firebaseapp.com",
+            projectId: "qparts-23575",
+            storageBucket: "qparts-23575.firebasestorage.app",
+            messagingSenderId: "1006090641682",
+            appId: "1:1006090641682:web:d4b88d5dd4f498b6a9d3cb",
+            measurementId: "G-LXY1R8RYY6"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // DOM Elements
+        const loginForm = document.getElementById('login-form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('login-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnLoader = document.getElementById('btn-loader');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        const passwordToggle = document.getElementById('password-toggle');
+        const eyeIcon = passwordToggle.querySelector('i');
+        const rememberCheckbox = document.getElementById('remember');
+
+        // Check if there's saved login info
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedEmail = localStorage.getItem('qpEmail');
+            const savedPassword = localStorage.getItem('qpPassword');
+            
+            if (savedEmail && savedPassword) {
+                emailInput.value = savedEmail;
+                passwordInput.value = savedPassword;
+                rememberCheckbox.checked = true;
+            }
+        });
+
+        // Password toggle visibility
+        passwordToggle.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            eyeIcon.classList.toggle('fa-eye');
+            eyeIcon.classList.toggle('fa-eye-slash');
+        });
+
+        // Form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            const remember = rememberCheckbox.checked;
+            
+            // Show loading state
+            btnText.textContent = "Signing In...";
+            btnLoader.style.display = "inline-block";
+            loginBtn.disabled = true;
+            errorMessage.style.display = "none";
+            
+            // Save credentials if "Remember me" is checked
+            if (remember) {
+                localStorage.setItem('qpEmail', email);
+                localStorage.setItem('qpPassword', password);
+            } else {
+                localStorage.removeItem('qpEmail');
+                localStorage.removeItem('qpPassword');
+            }
+            
+            // Authenticate with Firebase
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log("User logged in:", user);
+                    
+                    // Simulate successful login UI
+                    setTimeout(() => {
+                        btnText.textContent = "Login Successful!";
+                        btnLoader.style.display = "none";
+                        
+                        // Show success message
+                        errorMessage.style.background = "#d4edda";
+                        errorMessage.style.borderColor = "#c3e6cb";
+                        errorMessage.style.color = "#155724";
+                        errorText.innerHTML = `<i class="fas fa-check-circle"></i> Login successful! Redirecting...`;
+                        errorMessage.style.display = "block";
+                        
+                        // Redirect to dashboard after delay
+                        setTimeout(() => {
+                            window.location.href = "profile.html";
+                        }, 1500);
+                    }, 1500);
+                })
+                .catch((error) => {
+                    // Handle Errors
+                    const errorCode = error.code;
+                    let errorMessageText = "";
+                    
+                    switch(errorCode) {
+                        case "auth/invalid-email":
+                            errorMessageText = "Please enter a valid email address.";
+                            break;
+                        case "auth/user-disabled":
+                            errorMessageText = "This account has been disabled.";
+                            break;
+                        case "auth/user-not-found":
+                            errorMessageText = "No account found with this email.";
+                            break;
+                        case "auth/wrong-password":
+                            errorMessageText = "Incorrect password. Please try again.";
+                            break;
+                        default:
+                            errorMessageText = "An error occurred. Please try again.";
+                    }
+                    
+                    // Reset button state
+                    btnText.textContent = "Sign In";
+                    btnLoader.style.display = "none";
+                    loginBtn.disabled = false;
+                    
+                    // Show error message
+                    errorText.textContent = errorMessageText;
+                    errorMessage.style.display = "block";
+                });
+        });
+        
+        // Real-time validation
+        emailInput.addEventListener('input', validateForm);
+        passwordInput.addEventListener('input', validateForm);
+        
+        function validateForm() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            // Basic validation
+            const isValid = email !== "" && password.length >= 6;
+            loginBtn.disabled = !isValid;
+        }
+        
+        // Social login buttons
+        document.querySelector('.social-icon.facebook').addEventListener('click', function() {
+            alert("Facebook login selected - functionality would be implemented");
+        });
+        
+        document.querySelector('.social-icon.google').addEventListener('click', function() {
+            alert("Google login selected - functionality would be implemented");
+        });
+        
+        document.querySelector('.social-icon.twitter').addEventListener('click', function() {
+            alert("Twitter login selected - functionality would be implemented");
+        });
+    </script>
+</body>
+</html>
