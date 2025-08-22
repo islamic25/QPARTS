@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameWorld - Privacy Policy</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e6e6e6;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(90, 220, 255, 0.3);
+            position: relative;
+        }
+        
+        .back-button {
+            background: rgba(90, 220, 255, 0.2);
+            border: 1px solid #5adcff;
+            color: #5adcff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(90, 220, 255, 0.5);
+        }
+        
+        .back-button:hover {
+            background: rgba(90, 220, 255, 0.3);
+            box-shadow: 0 0 15px rgba(90, 220, 255, 0.8);
+        }
+        
+        .app-title {
+            font-family: 'Oxanium', cursive;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            flex: 1;
+            margin-right: 40px;
+            color: #fff;
+            text-shadow: 0 0 10px #7e37ff, 0 0 20px #7e37ff;
+        }
+        
+        .page-title {
+            font-family: 'Oxanium', cursive;
+            font-size: 28px;
+            text-align: center;
+            margin: 15px 0 25px;
+            color: #fff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+        }
+        
+        .content-box {
+            background: rgba(20, 20, 40, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(126, 55, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .section-title {
+            font-family: 'Oxanium', cursive;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #5adcff;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: "•";
+            margin-right: 10px;
+            color: #ff00ff;
+            font-size: 30px;
+        }
+        
+        .section-content {
+            font-size: 16px;
+            color: #cccccc;
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+        
+        .highlight {
+            color: #ffcc00;
+            font-weight: 500;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+            border-top: 1px solid rgba(90, 220, 255, 0.3);
+            font-size: 14px;
+            color: #999;
+        }
+        
+        /* Neon effect for important elements */
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
+        }
+        
+        /* Scrollable content for mobile */
+        .scroll-container {
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(20, 20, 40, 0.5);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #7e37ff, #5adcff);
+            border-radius: 10px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .content-box {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+            
+            .section-content {
+                font-size: 14px;
+                padding-left: 20px;
+            }
+        }
+        
+        /* Animation for section titles */
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #5adcff; }
+            50% { text-shadow: 0 0 15px #5adcff, 0 0 25px #5adcff; }
+            100% { text-shadow: 0 0 5px #5adcff; }
+        }
+        
+        .section-title {
+            animation: glow 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="back-button" onclick="goBack()">←</div>
+            <div class="app-title">GameWorld</div>
+        </div>
+        
+        <h1 class="page-title">PRIVACY POLICY</h1>
+        
+        <div class="scroll-container">
+            <div class="content-box">
+                <h2 class="section-title">Data Collection</h2>
+                <p class="section-content">
+                    GameWorld collects information that you provide directly to us when you create an account, 
+                    make in-app purchases, or contact customer support. This may include your 
+                    <span class="highlight">username, email address, payment information, and gameplay data</span>. 
+                    We also automatically collect certain information about your device and how you interact with our services.
+                </p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="section-title">Use of Data</h2>
+                <p class="section-content">
+                    We use the information we collect to:
+                </p>
+                <p class="section-content">
+                    • Provide, maintain, and improve our services<br>
+                    • Develop new games and features<br>
+                    • Personalize your gaming experience<br>
+                    • Process transactions and send related information<br>
+                    • Send you technical notices and support messages<br>
+                    • Monitor and analyze trends, usage, and activities
+                </p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="section-title">Third-Party Services</h2>
+                <p class="section-content">
+                    GameWorld may use third-party services such as analytics providers, advertising networks, 
+                    and payment processors. These companies have their own privacy policies governing how they 
+                    use the information we share with them. We recommend reviewing their policies for more information.
+                </p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="section-title">Cookies</h2>
+                <p class="section-content">
+                    We use cookies and similar tracking technologies to track activity on our service and 
+                    hold certain information. Cookies are files with a small amount of data that may include 
+                    an anonymous unique identifier. You can instruct your browser to refuse all cookies or to 
+                    indicate when a cookie is being sent.
+                </p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="section-title">User Rights</h2>
+                <p class="section-content">
+                    Depending on your location, you may have the right to:
+                </p>
+                <p class="section-content">
+                    • Access and receive a copy of your personal data<br>
+                    • Rectify or update inaccurate personal data<br>
+                    • Request deletion of your personal data<br>
+                    • Restrict or object to our processing of your personal data<br>
+                    • Data portability<br>
+                    • Withdraw consent at any time
+                </p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="section-title">Contact Information</h2>
+                <p class="section-content">
+                    If you have any questions about this Privacy Policy, please contact us at:
+                </p>
+                <p class="section-content">
+                    Email: <span class="highlight">privacy@gameworld.com</span><br>
+                    Support: <span class="highlight">support@gameworld.com</span><br>
+                    Address: 123 Gaming Avenue, Tech City, Digital State, 10101
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Last updated: January 2023</p>
+            <p>© 2023 GameWorld. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            // In a real app, this would navigate back to the main screen
+            alert("Returning to main app...");
+            // window.history.back(); or navigation function for your app framework
+        }
+        
+        // Add subtle interactive effects
+        document.querySelectorAll('.content-box').forEach(box => {
+            box.addEventListener('click', function() {
+                this.style.transform = 'scale(1.01)';
+                this.style.transition = 'transform 0.2s ease';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameWorld - Achievements</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    body {
+      background: #0a0e17;
+      color: white;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding-bottom: 30px;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      margin-bottom: 20px;
+    }
+    
+    .logo {
+      font-weight: 700;
+      font-size: 22px;
+      background: linear-gradient(45deg, #4ecca3, #9d4edd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #4ecca3, #9d4edd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .streak-section {
+      background: rgba(13, 18, 30, 0.8);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .streak-title {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .streak-count {
+      color: #4ecca3;
+      font-weight: 600;
+    }
+    
+    .streak-bar {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      display: flex;
+    }
+    
+    .streak-day {
+      flex: 1;
+      height: 100%;
+      margin: 0 2px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .streak-day.active {
+      background: linear-gradient(90deg, #4ecca3, #9d4edd);
+    }
+    
+    .streak-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .section-title {
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .game-card {
+      background: rgba(13, 18, 30, 0.8);
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .game-image {
+      height: 120px;
+      background: linear-gradient(45deg, #1a1f2e, #2a3349);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: #4ecca3;
+    }
+    
+    .game-info {
+      padding: 15px;
+    }
+    
+    .game-title {
+      font-weight: 500;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    
+    .game-desc {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 15px;
+      height: 32px;
+      overflow: hidden;
+    }
+    
+    .play-btn {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(45deg, #4ecca3, #3aa888);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 480px) {
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">GAMEWORLD</div>
+      <div class="avatar">
+        <i class="fas fa-user"></i>
+      </div>
+    </div>
+    
+    <div class="streak-section">
+      <div class="streak-title">
+        <span>Login Streak</span>
+        <span class="streak-count"><span id="current-streak">3</span>/7 days</span>
+      </div>
+      <div class="streak-bar" id="streak-bar">
+        <!-- Streak days will be populated by JavaScript -->
+      </div>
+      <div class="streak-labels">
+        <span>Day 1</span>
+        <span>Day 7</span>
+      </div>
+    </div>
+    
+    <h2 class="section-title">UNLOCKED GAMES</h2>
+    <div class="games-grid" id="games-container">
+      <!-- Games will be populated by JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    // Game data - in a real app, this would come from a server
+    const games = [
+      {
+        id: 1,
+        title: "Dragon Quest",
+        description: "Defeat the dragon and save the kingdom",
+        icon: "dragon",
+        requiredStreak: 1
+      },
+      {
+        id: 2,
+        title: "Royal Chess",
+        description: "Strategic board game challenge",
+        icon: "chess-knight",
+        requiredStreak: 2
+      },
+      {
+        id: 3,
+        title: "Puzzle Master",
+        description: "Solve challenging puzzles",
+        icon: "puzzle-piece",
+        requiredStreak: 3
+      },
+      {
+        id: 4,
+        title: "Space Adventure",
+        description: "Explore the cosmos",
+        icon: "space-shuttle",
+        requiredStreak: 5
+      },
+      {
+        id: 5,
+        title: "Racing Extreme",
+        description: "High-speed racing game",
+        icon: "car",
+        requiredStreak: 7
+      }
+    ];
+
+    // Initialize the app
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get or initialize streak from localStorage
+      let currentStreak = localStorage.getItem('gameworld_streak');
+      let lastLoginDate = localStorage.getItem('gameworld_last_login');
+      const today = new Date().toDateString();
+      
+      if (!currentStreak) {
+        currentStreak = 0;
+        localStorage.setItem('gameworld_streak', currentStreak);
+      }
+      
+      if (!lastLoginDate) {
+        lastLoginDate = today;
+        localStorage.setItem('gameworld_last_login', lastLoginDate);
+      }
+      
+      // Check if user logged in today
+      if (lastLoginDate !== today) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        // If last login was yesterday, increment streak
+        if (new Date(lastLoginDate).toDateString() === yesterday.toDateString()) {
+          currentStreak = Math.min(parseInt(currentStreak) + 1, 7);
+        } else {
+          // Otherwise reset streak
+          currentStreak = 1;
+        }
+        
+        localStorage.setItem('gameworld_streak', currentStreak);
+        localStorage.setItem('gameworld_last_login', today);
+      }
+      
+      // Update UI with current streak
+      document.getElementById('current-streak').textContent = currentStreak;
+      
+      // Render streak bar
+      const streakBar = document.getElementById('streak-bar');
+      streakBar.innerHTML = '';
+      
+      for (let i = 1; i <= 7; i++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'streak-day';
+        if (i <= currentStreak) {
+          dayElement.classList.add('active');
+        }
+        streakBar.appendChild(dayElement);
+      }
+      
+      // Render unlocked games
+      const gamesContainer = document.getElementById('games-container');
+      gamesContainer.innerHTML = '';
+      
+      const unlockedGames = games.filter(game => game.requiredStreak <= currentStreak);
+      
+      if (unlockedGames.length === 0) {
+        gamesContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 20px;">Play more to unlock games!</p>';
+      } else {
+        unlockedGames.forEach(game => {
+          const gameElement = document.createElement('div');
+          gameElement.className = 'game-card';
+          gameElement.innerHTML = `
+            <div class="game-image">
+              <i class="fas fa-${game.icon}"></i>
+            </div>
+            <div class="game-info">
+              <div class="game-title">${game.title}</div>
+              <div class="game-desc">${game.description}</div>
+              <button class="play-btn">PLAY</button>
+            </div>
+          `;
+          gamesContainer.appendChild(gameElement);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

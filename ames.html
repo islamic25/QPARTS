@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameWorld - All Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-purple: #b967ff;
+            --neon-blue: #00ccff;
+            --neon-pink: #ff2a6d;
+            --neon-cyan: #05d9e8;
+            --dark-bg: #0f0c1d;
+            --card-bg: rgba(20, 20, 35, 0.8);
+            --input-bg: rgba(20, 15, 35, 0.7);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg), #1a1a2e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            overflow-x: hidden;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: pulse 15s infinite alternate;
+        }
+
+        .circle1 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-purple);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .circle2 {
+            width: 450px;
+            height: 450px;
+            background: var(--neon-blue);
+            bottom: 5%;
+            right: 5%;
+            animation-delay: -5s;
+        }
+
+        .circle3 {
+            width: 250px;
+            height: 250px;
+            background: var(--neon-pink);
+            top: 50%;
+            left: 5%;
+            animation-delay: -10s;
+        }
+
+        .container {
+            width: 100%;
+            padding-bottom: 70px; /* Space for bottom nav */
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(20, 20, 35, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(110, 69, 226, 0.3);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.5);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        .logo-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .page-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.3);
+        }
+
+        .search-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--input-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-purple);
+            border: 1px solid rgba(110, 69, 226, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .search-icon:hover {
+            color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(78, 204, 163, 0.3);
+        }
+
+        /* Filter Section */
+        .filters {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 15px 20px;
+            scrollbar-width: none;
+        }
+
+        .filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: var(--input-bg);
+            border: 1px solid rgba(110, 69, 226, 0.3);
+            border-radius: 20px;
+            color: #a0a0b8;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            color: white;
+            border: none;
+            box-shadow: 0 0 10px rgba(110, 69, 226, 0.5);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--neon-purple);
+            color: white;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 20px 20px 20px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(110, 69, 226, 0.2);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue), var(--neon-purple));
+            z-index: -1;
+            border-radius: 18px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(110, 69, 226, 0.3);
+        }
+
+        .game-card:hover::before {
+            opacity: 0.5;
+        }
+
+        .game-thumb {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .game-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .game-category {
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+        }
+
+        .play-btn {
+            padding: 8px 0;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            margin-top: auto;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .play-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue), var(--neon-purple));
+            z-index: -1;
+            border-radius: 22px;
+            animation: glowing 1.5s infinite;
+            filter: blur(3px);
+        }
+
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 35, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(110, 69, 226, 0.2);
+            z-index: 100;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #a0a0b8;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--neon-purple);
+        }
+
+        .nav-item.active .nav-icon {
+            text-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: var(--neon-blue);
+        }
+
+        .nav-item:hover .nav-icon {
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* Animations */
+        @keyframes logoGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(185, 103, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(185, 103, 255, 0.8), 
+                             0 0 30px rgba(0, 204, 255, 0.6);
+            }
+        }
+
+        @keyframes glowing {
+            0% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.15;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(0.9);
+                opacity: 0.1;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 400px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+                min-height: 90vh;
+                margin: 20px auto;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+            
+            .bottom-nav {
+                width: 100%;
+                max-width: 500px;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }
+        }
+        .games-container {
+  display: flex;
+  flex-wrap: wrap; /* responsive ke liye */
+  gap: 20px; /* cards ke beech space */
+}
+
+.game-card {
+  flex: 1 1 calc(50% - 20px); /* ek line me 2 cards, responsive */
+  box-sizing: border-box;
+}
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="bg-circle circle1"></div>
+        <div class="bg-circle circle2"></div>
+        <div class="bg-circle circle3"></div>
+    </div>
+    
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="logo"><i class="fas fa-gamepad logo-icon"></i>GameWorld</div>
+            <div class="page-title">All Games</div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Action">Action</button>
+            <button class="filter-btn" data-filter="Adventure">Adventure</button>
+            <button class="filter-btn" data-filter="Racing">Racing</button>
+            <button class="filter-btn" data-filter="Puzzle">Puzzle</button>
+            <button class="filter-btn" data-filter="Sports">Sports</button>
+            <button class="filter-btn" data-filter="Strategy">Strategy</button>
+        </div>
+
+        <!-- Games Grid -->
+        <div class="games-grid">
+            <div class="game-card" data-category="Action Runner">
+                <img src="XXX_cover.png" alt="Subway Surfers" class="game-thumb">
+                <div class="game-info">
+                    <h3 class="game-title">Subway Surfers</h3>
+                    <p class="game-category">Endless Runner</p>
+                    <a href="https://poki.com/en/g/subway-surfers" target="_blank" class="play-btn">Play</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="Action Adventure Runner">
+                <img src="images.jpg" alt="Temple Run 2" class="game-thumb">
+                <div class="game-info">
+                    <h3 class="game-title">Temple Run 2</h3>
+                    <p class="game-category">Endless Runner</p>
+                    <a href="https://poki.com/en/g/temple-run-2" target="_blank" class="play-btn">Play</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="Puzzle Simulation">
+                <img src="unnamed.jpg" alt="Marble Run 3D" class="game-thumb">
+                <div class="game-info">
+                    <h3 class="game-title">Marble Run 3D</h3>
+                    <p class="game-category">Puzzle / Simulation</p>
+                    <a href="https://poki.com/en/g/marble-run-3d" target="_blank" class="play-btn">Play</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="Racing Action">
+                <img src="images (1).jpg" alt="Crazy Descent" class="game-thumb">
+                <div class="game-info">
+                    <h3 class="game-title">Crazy Descent</h3>
+                    <p class="game-category">Racing / Action</p>
+                    <a href="https://poki.com/en/g/crazy-descent" target="_blank" class="play-btn">Play</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="Racing Sports">
+                <img src="super-bike-the-champion.jpg" alt="Super Bike the Champion" class="game-thumb">
+                <div class="game-info">
+                    <h3 class="game-title">Super Bike the Champion</h3>
+                    <p class="game-category">Racing / Bike</p>
+                    <a href="https://poki.com/en/g/super-bike-the-champion" target="_blank" class="play-btn">Play</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="Sports Puzzle">
+                <img src="maxresdefault.jpg" alt="Pool Club" class="game-thumb">
+                <div class="game-info">
+                    <h3 class="game-title">Pool Club</h3>
+                    <p class="game-category">Sports / Puzzle</p>
+                    <a href="https://poki.com/en/g/pool-club" target="_blank" class="play-btn">Play</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="Puzzle Strategy Cooking">
+                <img src="unnamed.png" alt="Piece of Cake: Merge & Bake" class="game-thumb">
+                <div class="game-info">
+                    <h3 class="game-title">Piece of Cake: Merge & Bake</h3>
+                    <p class="game-category">Puzzle / Merge / Cooking</p>
+                    <a href="https://www.crazygames.com/game/piece-of-cake-merge-and-bake" target="_blank" class="play-btn">Play</a>
+                </div>
+            </div>
+
+            <div class="game-card" data-category="Action Runner Strategy">
+                <img src="unnamed (1).jpg" alt="Count Masters: Stickman Games" class="game-thumb">
+                <div class="game-info">
+                    <h3 class="game-title">Count Masters: Stickman Games</h3>
+                    <p class="game-category">Runner / Stickman / Strategy</p>
+                    <a href="https://www.crazygames.com/game/count-masters-stickman-games" target="_blank" class="play-btn">Play</a>
+                </div>
+            </div>
+            <div class="game-card" data-category="Action / Multiplayer / Shooting">
+    <img src="images (2).jpg" alt="TDP4: Team Battle" class="game-thumb">
+    <div class="game-info">
+        <h3 class="game-title">TDP4: Team Battle</h3>
+        <p class="game-category">Action / Multiplayer / Shooting</p>
+        <a href="https://www.crazygames.com/game/tdp4-team-battle" target="_blank" class="play-btn">Play</a>
+    </div>
+</div>
+<div class="game-card" data-category="Action / Battle / Stickman">
+    <img src="stickman-clash_1x1-cover.png" alt="Stickman Clash" class="game-thumb">
+    <div class="game-info">
+        <h3 class="game-title">Stickman Clash</h3>
+        <p class="game-category">Action / Battle / Stickman</p>
+        <a href="https://www.crazygames.com/game/stickman-clash" target="_blank" class="play-btn">Play</a>
+    </div>
+</div>
+ <div class="game-card" data-category="Strategy / Tower Defense / Action">
+      <img src="bloons-tower-defense-4-expansion_1x1.png" alt="Bloons Tower Defense 4" class="game-thumb">
+      <div class="game-info">
+          <h3 class="game-title">Bloons Tower Defense 4</h3>
+          <p class="game-category">Strategy / Tower Defense / Action</p>
+          <a href="https://www.crazygames.com/game/bloons-tower-defense-4" target="_blank" class="play-btn">Play</a>
+      </div>
+  </div>
+
+  <div class="game-card" data-category="Strategy / Medieval / Tower Defense">
+      <img src="age-of-arms_2.webp" alt="Age of Arms" class="game-thumb">
+      <div class="game-info">
+          <h3 class="game-title">Age of Arms</h3>
+          <p class="game-category">Strategy / Medieval / Tower Defense</p>
+          <a href="https://www.crazygames.com/game/age-of-arms" target="_blank" class="play-btn">Play</a>
+      </div>
+  </div>
+
+  <div class="game-card" data-category="Racing / Sports / Offroad">
+      <img src="images (3).jpg" alt="MX Offroad Master" class="game-thumb">
+      <div class="game-info">
+          <h3 class="game-title">MX Offroad Master</h3>
+          <p class="game-category">Racing / Sports / Offroad</p>
+          <a href="https://www.crazygames.com/game/mx-offroad-master" target="_blank" class="play-btn">Play</a>
+      </div>
+  </div>
+  <!-- Rolling Balls -->
+<div class="game-card" data-category="Racing / Skill / Sea">
+  <img src="ff.jpg" alt="Rolling Balls: Sea Race" class="game-thumb">
+  <div class="game-info">
+      <h3 class="game-title">Rolling Balls: Sea Race</h3>
+      <p class="game-category">Racing / Skill / Sea</p>
+      <a href="https://www.crazygames.com/game/roling-balls-sea-race" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+
+<!-- Bridge Race -->
+<div class="game-card" data-category="Collect / Building / Racing">
+  <img src="bbb.jpg" alt="Bridge Race" class="game-thumb">
+  <div class="game-info">
+      <h3 class="game-title">Bridge Race</h3>
+      <p class="game-category">Collect / Building / Racing</p>
+      <a href="https://www.crazygames.com/game/bridge-race" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Action / Strategy / Survival">
+  <img src="images (4).jpg" alt="Squid 456 Challenge" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Squid 456 Challenge</h3>
+    <p class="game-category">Action / Strategy / Survival</p>
+    <a href="https://www.blipzi.com/squid-456-challenge.html" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Strategy / Board / Classic">
+  <img src="master-checkers-d.webp" alt="Master Checkers" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Master Checkers</h3>
+    <p class="game-category">Strategy / Board / Classic</p>
+    <a href="https://www.blipzi.com/master-checkers.html" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Strategy / Board / Classic">
+  <img src="ludo-classic-d.webp" alt="Ludo Classic" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Ludo Classic</h3>
+    <p class="game-category">Strategy / Board / Classic</p>
+    <a href="https://www.blipzi.com/ludo-classic.html" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Cooking / Strategy / Casual">
+  <img src="images (5).jpg" alt="Cooking Chef Food Fever" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Cooking Chef Food Fever</h3>
+    <p class="game-category">Cooking / Strategy / Casual</p>
+    <a href="https://www.blipzi.com/cooking-chef-food-fever.html" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Racing / Multiplayer / Futuristic">
+  <img src="two-punk-racing-2-d.webp" alt="Two Punk Racing 2" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Two Punk Racing 2</h3>
+    <p class="game-category">Racing / Multiplayer / Futuristic</p>
+    <a href="https://www.blipzi.com/two-punk-racing-2.html" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+
+
+
+</div>
+
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="dashboard.html" class="nav-item"><i class="fas fa-home nav-icon"></i><span>Home</span></a>
+            <a href="games.html" class="nav-item active"><i class="fas fa-gamepad nav-icon"></i><span>Games</span></a>
+            <a href="profile.html" class="nav-item"><i class="fas fa-user nav-icon"></i><span>Profile</span></a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const gameCards = document.querySelectorAll('.game-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filterValue = this.getAttribute('data-filter');
+
+                    gameCards.forEach(card => {
+                        const categories = card.getAttribute('data-category').split(" ");
+                        if (filterValue === "All" || categories.includes(filterValue)) {
+                            card.style.display = "flex";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

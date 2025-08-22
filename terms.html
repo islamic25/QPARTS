@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameWorld - Terms & Conditions</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Orbitron:wght@700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6, #60a5fa);
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-top: 16px;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px rgba(139, 92, 246, 0.7);
+            letter-spacing: 1px;
+        }
+        
+        .last-updated {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(139, 92, 246, 0.15);
+            color: #d8b4fe;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+        }
+        
+        .back-button svg {
+            margin-right: 8px;
+        }
+        
+        .content {
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        /* Custom scrollbar */
+        .content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .content::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+        }
+        
+        .content::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ec4899, #8b5cf6);
+            border-radius: 10px;
+        }
+        
+        h2 {
+            font-size: 20px;
+            margin: 24px 0 12px;
+            color: #d8b4fe;
+            font-weight: 600;
+            border-left: 3px solid #8b5cf6;
+            padding-left: 12px;
+            text-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+        }
+        
+        p, ul {
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+        
+        ul {
+            padding-left: 24px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        strong {
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .glow-effect {
+            height: 120px;
+            width: 120px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(0, 0, 0, 0) 70%);
+            position: fixed;
+            z-index: -1;
+        }
+        
+        .glow-1 {
+            top: 10%;
+            left: 10%;
+            animation: pulse 8s infinite alternate;
+        }
+        
+        .glow-2 {
+            bottom: 10%;
+            right: 10%;
+            animation: pulse 10s infinite alternate;
+        }
+        
+        .glow-3 {
+            top: 40%;
+            right: 20%;
+            animation: pulse 12s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
+        
+        .section {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .accept-button {
+            display: block;
+            width: 100%;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .accept-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 28px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+            
+            .container {
+                padding: 20px 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            h2 {
+                font-size: 18px;
+            }
+            
+            .content {
+                height: calc(100vh - 160px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-effect glow-1"></div>
+    <div class="glow-effect glow-2"></div>
+    <div class="glow-effect glow-3"></div>
+    
+    <div class="container">
+        <a href="#" class="back-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Back to App
+        </a>
+        
+        <header>
+            <h1>TERMS & CONDITIONS</h1>
+            <p class="last-updated">Last Updated: January 15, 2023</p>
+        </header>
+        
+        <div class="content">
+            <div class="section">
+                <h2>Introduction</h2>
+                <p>Welcome to GameWorld! These Terms and Conditions govern your use of the GameWorld mobile application and related services. By accessing or using our app, you agree to be bound by these terms.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Account Registration</h2>
+                <p>To access certain features of GameWorld, you must create an account. When registering, you agree to:</p>
+                <ul>
+                    <li>Provide accurate, current, and complete information</li>
+                    <li>Maintain and promptly update your account information</li>
+                    <li>Maintain the security of your password and accept all risks of unauthorized access</li>
+                    <li>Notify us immediately if you discover or suspect any security breaches related to your account</li>
+                    <li>Take responsibility for all activities that occur under your account</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>User Responsibilities</h2>
+                <p>As a user of GameWorld, you agree to:</p>
+                <ul>
+                    <li>Use the app only for lawful purposes</li>
+                    <li>Respect all applicable laws and regulations</li>
+                    <li>Not engage in any activity that disrupts or interferes with our services</li>
+                    <li>Not attempt to bypass any security or access controls</li>
+                    <li>Not create multiple accounts for abusive or fraudulent purposes</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Prohibited Activities</h2>
+                <p>You may not use GameWorld to:</p>
+                <ul>
+                    <li>Engage in any illegal or unauthorized purpose</li>
+                    <li>Harass, abuse, or harm another person</li>
+                    <li>Send spam or other unsolicited messages</li>
+                    <li>Impersonate any person or entity</li>
+                    <li>Upload or transmit viruses or malicious code</li>
+                    <li>Collect or track personal information of others</li>
+                    <li>Engage in any activity that exploits, harms, or attempts to exploit or harm minors</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Intellectual Property</h2>
+                <p>All content, features, and functionality of GameWorld, including but not limited to text, graphics, logos, images, and software, are the exclusive property of GameWorld and its licensors. Our content is protected by copyright, trademark, and other laws.</p>
+                <p>You may not copy, modify, distribute, sell, or lease any part of our services or included software, nor may you reverse engineer or attempt to extract the source code of that software.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Limitation of Liability</h2>
+                <p>To the fullest extent permitted by law, GameWorld shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, use, goodwill, or other intangible losses, resulting from:</p>
+                <ul>
+                    <li>Your access to or use of or inability to access or use the service</li>
+                    <li>Any conduct or content of any third party on the service</li>
+                    <li>Unauthorized access, use, or alteration of your transmissions or content</li>
+                    <li>Any other matter relating to the service</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Termination</h2>
+                <p>We may terminate or suspend your account and access to GameWorld immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.</p>
+                <p>Upon termination, your right to use the app will immediately cease. All provisions of the Terms which by their nature should survive termination shall survive termination.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Changes to Terms</h2>
+                <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will provide notice of significant changes through the app or via email. By continuing to access or use our app after those revisions become effective, you agree to be bound by the revised terms.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Contact Information</h2>
+                <p>If you have any questions about these Terms, please contact us at:</p>
+                <p><strong>Email:</strong> support@gameworldapp.com</p>
+                <p><strong>Address:</strong> GameWorld Inc., 123 Gaming Avenue, Tech City, CA 94103, United States</p>
+            </div>
+            
+            <button class="accept-button">I Accept These Terms</button>
+        </div>
+        
+        <footer>
+            <p>© 2023 GameWorld Inc. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple back button functionality
+        document.querySelector('.back-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            // In a real app, this would navigate back to the main app
+            alert('Navigating back to the GameWorld app...');
+        });
+        
+        // Accept terms button functionality
+        document.querySelector('.accept-button').addEventListener('click', function() {
+            // In a real app, this would record acceptance and proceed
+            alert('Terms accepted! Returning to the app...');
+        });
+    </script>
+</body>
+</html>
