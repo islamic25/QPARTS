@@ -182,13 +182,12 @@
             color: white;
         }
 
-        /* Games Grid */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 0 20px 20px 20px;
-        }
+       .games-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* hamesha 2 cards ek line me */
+  gap: 15px;
+  padding: 0 20px 20px 20px;
+}
 
         .game-card {
             background: var(--card-bg);
@@ -375,13 +374,12 @@
                 opacity: 0.1;
             }
         }
+@media (max-width: 400px) {
+  .games-grid {
+      grid-template-columns: repeat(2, 1fr); /* ✅ mobile pe bhi 2 cards */
+  }
+}
 
-        /* Responsive adjustments */
-        @media (max-width: 400px) {
-            .games-grid {
-                grid-template-columns: 1fr;
-            }
-        }
 
         @media (min-width: 768px) {
             body {
@@ -399,16 +397,7 @@
                 border-bottom-right-radius: 20px;
             }
         }
-        .games-container {
-  display: flex;
-  flex-wrap: wrap; /* responsive ke liye */
-  gap: 20px; /* cards ke beech space */
-}
-
-.game-card {
-  flex: 1 1 calc(50% - 20px); /* ek line me 2 cards, responsive */
-  box-sizing: border-box;
-}
+      
     </style>
 </head>
 <body>
@@ -608,6 +597,63 @@
     <h3 class="game-title">Two Punk Racing 2</h3>
     <p class="game-category">Racing / Multiplayer / Futuristic</p>
     <a href="https://www.blipzi.com/two-punk-racing-2.html" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Racing / Multiplayer / Futuristic">
+  <img src="imag.jpg" alt="Sprint League" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Sprint League</h3>
+    <p class="game-category">Racing / Multiplayer / Futuristic</p>
+    <a href="https://poki.com/en/g/sprint-leag" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+
+<div class="game-card" data-category="Shooting / Multiplayer / 3D">
+  <img src="images (6).jpg" alt="Combat Reloaded" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Combat Reloaded</h3>
+    <p class="game-category">Shooting / Multiplayer / 3D</p>
+    <a href="https://poki.com/en/g/combat-reloaded" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Action / Strategy / Tower Defense / Tank Games">
+  <img src="images (7).jpg" alt="Call of Tanks" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Call of Tanks</h3>
+    <p class="game-category">Action / Strategy / Tower Defense / Tank Games</p>
+    <a href="https://poki.com/en/g/call-of-tanks" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Action / War / Flying / Airplane Games">
+  <img src="images (8).jpg" alt="Dogfight" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Dogfight</h3>
+    <p class="game-category">Action / War / Flying / Airplane Games</p>
+    <a href="https://poki.com/en/g/dogfight" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="3D / Tower Defense / Merge Games">
+  <img src="images (9).jpg" alt="Merge Arena" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Merge Arena</h3>
+    <p class="game-category">3D / Tower Defense / Merge Games</p>
+    <a href="https://poki.com/en/g/merge-arena" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Strategy / Action / Tower Defense / War Games">
+  <img src="images (10).jpg" alt="Tower Crush" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Tower Crush</h3>
+    <p class="game-category">Strategy / Action / Tower Defense / War Games</p>
+    <a href="https://poki.com/en/g/tower-crush" target="_blank" class="play-btn">Play</a>
+  </div>
+</div>
+<div class="game-card" data-category="Action / Multiplayer / Shooting / Gun Games">
+  <img src="images (11).jpg" alt="Rocket Clash 3D" class="game-thumb">
+  <div class="game-info">
+    <h3 class="game-title">Rocket Clash 3D</h3>
+    <p class="game-category">Action / Multiplayer / Shooting / Gun Games</p>
+    <a href="https://poki.com/en/g/rocket-clash-3d" target="_blank" class="play-btn">Play</a>
   </div>
 </div>
 
